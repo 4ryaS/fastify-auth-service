@@ -1,16 +1,17 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
 import env_plugin from "./config/env.config";
+import connect_db from "./config/db.config";
 
 const server = fastify({ logger: true });
 
 server.register(env_plugin);
+server.register(connect_db);
 
 server.register(cors, {
     origin: "*",
     credentials: false,
 });
-
 
 const start_server = async () => {
     await server.ready(); // // Make sure all plugins (including env) are loaded
