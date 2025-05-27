@@ -1,9 +1,10 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
+import env_plugin from "./config/env.config";
 
 const server = fastify({ logger: true });
 
-const PORT: number = 8000;
+server.register(env_plugin);
 
 server.register(cors, {
     origin: "*",
@@ -12,13 +13,14 @@ server.register(cors, {
 
 
 const start_server = async () => {
-    server.listen({ port: PORT }, (err, address) => {
+    await server.ready(); // // Make sure all plugins (including env) are loaded
+    server.listen({ port: server.config.PORT }, (err, address) => {
         if (err) {
             server.log.error(err);
             process.exit(1);
         }
         console.log(`Server listening at ${address}`);
     });
-};
+}
 
 start_server();
