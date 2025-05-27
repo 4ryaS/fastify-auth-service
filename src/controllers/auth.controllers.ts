@@ -9,10 +9,10 @@ export const auth_controllers = async (fastify: FastifyInstance) => {
             const { email, password } = request.body as {email: string; password: string; };
             try {
                 const user = await auth_service.register_user(email, password);
-                reply.code(201).send({ id: user._id, email: user.email });
+                return reply.code(201).send({ id: user._id, email: user.email });
             }
             catch {
-                reply.code(400).send({ error: "Registration failed" });
+                return reply.code(400).send({ error: "Registration failed" });
             }
         },
 
