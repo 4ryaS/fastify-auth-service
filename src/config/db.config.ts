@@ -2,7 +2,7 @@ import fp from "fastify-plugin";
 import { FastifyInstance } from "fastify";
 import mongoose from "mongoose";
 
-const connect_db = async (fastify: FastifyInstance, options: Object) => {
+const connect_db = async (fastify: FastifyInstance, options: object) => {
     const MONGO_URI = fastify.config.MONGO_URI;
 
     if (!MONGO_URI) {
